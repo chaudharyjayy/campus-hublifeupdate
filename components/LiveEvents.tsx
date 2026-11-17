@@ -2,40 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { getSupabaseBrowserClient, isSupabaseConfigured } from '@/lib/supabase-browser';
+import EventCard from '@/components/EventCard';
+import { LIVE_SELECT, liveEventToCard } from '@/lib/cards';
 import type { LiveEvent } from '@/lib/live-events';
+import type { DetailsData } from '@/components/EventDetailsDialog';
 
 const OPEN_STATES = ['open', 'upcoming'];
 const isHttpsUrl = (value: unknown): value is string => typeof value === 'string' && /^https:\/\//i.test(value);
-const formatDeadline = (value: string | null): string | null => {
-  if (!value) return null;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-};
 
-const SELECT = 'id,external_id,source,title,tagline,official_url,starts_on,ends_on,deadline_on,location,organiser,category,themes,prize_display,registrations_count,open_state,mode,thumbnail_url,synced_at';
-
-function LiveCard({ event }: { event: LiveEvent }) {
-  return (
-    <article className="card">
-      <p className="card__eyebrow">
-        DEVPOST · {event.open_state === 'open' ? 'Open now' : 'Upcoming'}{event.mode === 'online' ? ' · Online' : ''}
-      </p>
-      <h3><a href={event.official_url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>{event.title}</a></h3>
-      {event.tagline && <p>{event.tagline}</p>}
-      <p className="mono">
-        {[event.organiser, event.location, event.prize_display ? `Prize: ${event.prize_display}` : null, event.registrations_count != null ? `${event.registrations_count} registered` : null].filter(Boolean).join(' · ')}
-      </p>
-      <div className="card__foot">
-        <span className="mono">{event.deadline_on ? `Closes ${formatDeadline(event.deadline_on)}` : 'No stated deadline'}</span>
-        <a className="btn btn--dark" href={event.official_url} target="_blank" rel="noopener noreferrer" style={{ padding: '0.5rem 0.9rem', fontSize: '0.85rem' }}>
-          Register ↗
-        </a>
-      </div>
-    </article>
-  );
-}
-
-export default function LiveEvents() {
+export default function LiveEvents({ onOpen }: { onOpen?: (event: DetailsData) => void }) {
   const configured = isSupabaseConfigured();
   const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [events, setEvents] = useState<LiveEvent[]>([]);
@@ -51,7 +26,7 @@ export default function LiveEvents() {
       const today = new Date().toISOString().slice(0, 10);
       const { data, error } = await client
         .from('live_events')
-        .select(SELECT)
+        .select(LIVE_SELECT)
         .eq('published', true)
         .in('open_state', OPEN_STATES)
         .or(`deadline_on.is.null,deadline_on.gte.${today}`)
@@ -86,24 +61,26 @@ export default function LiveEvents() {
     return (
       <div className="empty">
         <p><strong>Live feed unavailable.</strong></p>
-        <p className="mono">Copy <code>.env.example</code> to <code>.env.local</code>, fill in<br /><code>NEXT_PUBLIC_SUPABASE_URL</code> and <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code>,<br />then run <code>npm run sync:devpost</code>.</p>
+        <p className="mono">Copy <code>.env.example</code> to <code>.env.local</code>, fill in<br /><code>NEXT_PUBLIC_SUPABASE_URL</code> and <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code>,<br />then run <code>npm run sync:events</code>.</p>
       </div>
     );
   }
 
-  if (state === 'loading') return <div className="empty">Loading live Pune events from Devpost…</div>;
+  if (state === 'loading') return <div className="empty">Loading the live list…</div>;
   if (state === 'error') return <div className="empty"><strong>Couldn&rsquo;t reach the live feed.</strong><br />Check that the sync has run and your env values are set.</div>;
 
   return (
     <div>
       <p className="mono" data-testid="live-sync-stamp">
-        <span className="live-pill" data-fresh={lastSync ? 'true' : 'false'}><span className="live-dot" aria-hidden="true" /> LIVE from Devpost · Pune</span>
+        <span className="live-pill" data-fresh={lastSync ? 'true' : 'false'}><span className="live-dot" aria-hidden="true" /> Live · Pune</span>
         {lastSync ? ` · synced ${new Date(lastSync).toLocaleTimeString('en-GB')}` : ''}
       </p>
       {events.length === 0 ? (
-        <div className="empty">No open or upcoming Pune hackathons on Devpost right now. Check back after the next sync.</div>
+        <div className="empty">No open or upcoming events in Pune right now. Check back after the next sync.</div>
       ) : (
-        <div className="grid" style={{ marginTop: '1rem' }}>{events.map((event) => <LiveCard key={event.id} event={event} />)}</div>
+        <div className="grid" style={{ marginTop: '1rem' }}>
+          {events.map((event) => <EventCard key={event.id} onOpen={onOpen} event={liveEventToCard(event)} />)}
+        </div>
       )}
     </div>
   );

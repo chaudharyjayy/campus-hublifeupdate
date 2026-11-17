@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     default: 'CampusHub · upGrad SOT Pune',
     template: '%s · CampusHub Pune',
   },
-  description: 'Find your people, your next event, and your place on campus. The student hub for upGrad SOT Pune: campus events, live Pune hackathons from Devpost, and the people to build with.',
+  description:
+    'Campus events, hackathons and tech fests in Pune, and the people to build them with. The student hub for upGrad SOT Pune.',
 };
 
 /**
@@ -22,7 +23,7 @@ const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
+  "img-src 'self' data: https: http://127.0.0.1:54321",
   "font-src 'self'",
   "connect-src 'self' https://*.supabase.co wss://*.supabase.co http://127.0.0.1:54321 ws://127.0.0.1:54321",
   "object-src 'none'",

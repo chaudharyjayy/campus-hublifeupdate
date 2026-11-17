@@ -11,6 +11,7 @@ declare module 'react' {
       > & {
         variant?: 'primary' | 'secondary';
         type?: 'button' | 'submit';
+        disabled?: boolean | string;
         ref?: React.Ref<HTMLElement>;
       };
       'sakuga-tabs': React.DetailedHTMLProps<

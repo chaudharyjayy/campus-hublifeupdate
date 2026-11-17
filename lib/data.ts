@@ -21,32 +21,6 @@ export const students: Student[] = [
   { id: 'meera', name: 'Meera Nair', handle: 'meeran', branch: 'AI & DS', year: '3rd year', bio: 'Open-source contributor, Go + WASI.', skills: ['Go', 'C++', 'Rust'], lookingForTeam: true, profileCompleteness: 75 },
 ];
 
-export type CampusEvent = {
-  id: string;
-  title: string;
-  type: 'event' | 'hackathon';
-  category: string;
-  venue: string;
-  start: string;
-  registrationDeadline: string;
-  capacity?: number;
-};
-
-export const campusEvents: CampusEvent[] = [
-  { id: 'freshers-talk', title: "Freshers' tech talk", type: 'event', category: 'Meetup', venue: 'SOT seminar hall', start: '2026-11-18', registrationDeadline: '2026-11-16', capacity: 120 },
-  { id: 'smart-campus-ideathon', title: 'Smart campus ideathon', type: 'hackathon', category: 'Hackathon', venue: 'SOT seminar hall', start: '2026-11-24', registrationDeadline: '2026-11-22', capacity: 60 },
-  { id: 'git-workshop', title: 'Intro to Git & GitHub', type: 'event', category: 'Workshop', venue: 'SOT seminar hall', start: '2026-11-25', registrationDeadline: '2026-11-24', capacity: 40 },
-  { id: 'design-jam', title: 'UI/UX Design Jam', type: 'event', category: 'Design jam', venue: 'Innovation Lab', start: '2026-12-02', registrationDeadline: '2026-11-30', capacity: 30 },
-  { id: 'campus-hackathon', title: 'Campus Hackathon 2026', type: 'hackathon', category: 'Hackathon', venue: 'Main Auditorium', start: '2026-12-05', registrationDeadline: '2026-12-03', capacity: 100 },
-];
-
-export type CommunityPost = { id: string; author: string; title: string; replies: number; tag: string };
-export const communityPosts: CommunityPost[] = [
-  { id: 'p1', author: 'Kabir Shaikh', title: 'Need a backend dev for Campus Hackathon 2026', replies: 6, tag: 'Find teammate' },
-  { id: 'p2', author: 'Sneha Kulkarni', title: 'Firebase auth keeps logging me out on refresh', replies: 3, tag: 'Need help' },
-  { id: 'p3', author: 'Aarav Patil', title: 'Which electives are best for an ML track?', replies: 9, tag: 'Ask' },
-];
-
 export type LostFoundItem = { id: string; kind: 'Lost' | 'Found'; item: string; where: string; date: string };
 export const lostFoundItems: LostFoundItem[] = [
   { id: 'lf1', kind: 'Found', item: 'Set of keys', where: 'Library, room 2', date: '17 Nov' },

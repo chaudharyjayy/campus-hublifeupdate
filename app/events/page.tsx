@@ -1,10 +1,9 @@
 import EventsPanel from '@/components/EventsPanel';
-import { campusEvents } from '@/lib/data';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Events',
-  description: 'Campus events and the live Pune hackathon scene — pulled from Devpost, straight to this page.',
+  description: 'Open and upcoming hackathons and tech events in Pune.',
 };
 
 export default function EventsPage() {
@@ -14,11 +13,11 @@ export default function EventsPage() {
         <div className="container">
           <p className="kicker">Events</p>
           <h1>What&rsquo;s on.</h1>
-          <p className="sub">Workshops, meetups and hackathons from the campus team — plus the live Pune scene, synced from Devpost.</p>
+          <p className="sub">Open and upcoming hackathons and tech events in Pune.</p>
         </div>
       </section>
       <div className="container">
-        <EventsPanel events={campusEvents} />
+        <EventsPanel />
       </div>
     </>
   );

@@ -58,7 +58,7 @@ export default function SiteHeader() {
   };
 
   return (
-    <header className="hub-header">
+    <header className="hub-header liquid-glass">
       <div className="container hub-header__top">
         <Link className="hub-brand" href="/" aria-label="CampusHub home">
           <span className="brand-mark" aria-hidden="true">U</span>
@@ -72,15 +72,15 @@ export default function SiteHeader() {
         </nav>
 
         <div className="header-tools">
-          <button type="button" className="chip-button" onClick={() => setSearchOpen(true)} aria-label="Find a page (Cmd or Ctrl K)">
+          <button type="button" className="chip-button glass-chip" onClick={() => setSearchOpen(true)} aria-label="Find a page (Cmd or Ctrl K)">
             <SearchMark />
             <span>Find a page</span>
           </button>
-          <button type="button" className="chip-button" onClick={toggleTheme} aria-pressed={dark} aria-label="Switch to dark mode">
+          <button type="button" className="chip-button glass-chip" onClick={toggleTheme} aria-pressed={dark} aria-label="Switch to dark mode">
             <ThemeMark />
             <span>{dark ? 'Light mode' : 'Dark mode'}</span>
           </button>
-          <Link className="profile-link" href="/profile" aria-label="My space">P</Link>
+          <Link className="profile-link glass-chip" href="/profile" aria-label="My space">P</Link>
         </div>
       </div>
 

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ProfileHeader from '@/components/ProfileHeader';
+import StudentCta from '@/components/StudentCta';
 import { students } from '@/lib/data';
 import type { Metadata } from 'next';
 
@@ -23,23 +25,20 @@ export default async function StudentPage({ params }: { params: Promise<Segment>
   if (!student) return notFound();
 
   return (
-    <section className="hero" style={{ paddingBottom: '2rem' }}>
-      <div className="container">
+    <>
+      <section className="section container" style={{ paddingTop: '1.5rem' }}>
         <Link href="/students" className="mono" style={{ textDecoration: 'none' }}>← People</Link>
-        <p className="kicker" style={{ marginTop: '1.25rem' }}>{student.branch} · {student.year}</p>
-        <h1>{student.name}</h1>
-        <p className="sub">{student.bio}</p>
-        <div className="campus-strip" style={{ marginTop: '1.25rem' }}>
+        <ProfileHeader displayName={student.name} handle={student.handle} bio={student.bio} />
+        <div className="campus-strip" style={{ marginTop: '1rem' }}>
           {student.skills.map((skill) => <span key={skill} className="campus-strip__item">{skill}</span>)}
         </div>
         {student.lookingForTeam && (
-          <p className="kicker" style={{ marginTop: '1.25rem', color: 'var(--green)' }}>Looking for a team</p>
+          <p className="kicker" style={{ marginTop: '1rem', color: 'var(--green)' }}>Looking for a team</p>
         )}
-        <div className="btn-row">
-          <a className="btn btn--dark" href="/community">Ask for an intro</a>
-          <Link className="btn btn--ghost" href="/events">See upcoming events</Link>
+        <div style={{ marginTop: '1rem' }}>
+          <StudentCta />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

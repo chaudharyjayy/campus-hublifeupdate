@@ -10,7 +10,7 @@ export function isSupabaseConfigured(): boolean {
 let cached: SupabaseClient | null = null;
 export function getSupabaseBrowserClient(): SupabaseClient | null {
   if (!isSupabaseConfigured()) return null;
-  if (!cached) cached = createClient(url, key, { auth: { persistSession: false } });
+  if (!cached) cached = createClient(url, key);
   return cached;
 }
 

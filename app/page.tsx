@@ -1,6 +1,4 @@
-import EventCard from '@/components/EventCard';
-import { campusEvents } from '@/lib/data';
-import { formatDate } from '@/lib/format';
+import HomeEvents from '@/components/HomeEvents';
 
 const EXPLORE = [
   { label: 'Events', href: '/events', hint: 'Workshops, meetups and hackathons' },
@@ -10,18 +8,15 @@ const EXPLORE = [
 ];
 
 export default function Home() {
-  const upcoming = campusEvents.slice(0, 3);
-
   return (
     <>
       <section className="hero">
         <div className="container">
           <p className="kicker">upGrad SOT · Pune</p>
-          <h1>Campus life, <em>in one place.</em></h1>
-          <p className="sub">Find a workshop, meet a teammate, and see what&rsquo;s happening around your campus — plus the open-source and hackathon programs around Pune, live from Devpost.</p>
+          <h1>Campus life, <em>sorted.</em></h1>
+          <p className="sub">Campus events, teammates and the Pune hackathon scene. Spend time contributing.</p>
           <div className="btn-row">
             <a className="btn btn--solid" href="/events">Browse events</a>
-            <a className="btn btn--ghost" href="#explore">Explore the hub</a>
           </div>
         </div>
       </section>
@@ -43,43 +38,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="upnext-title">
-        <div className="container">
-          <div className="section__head">
-            <h2 id="upnext-title">Up next on campus</h2>
-            <a href="/events">All events →</a>
-          </div>
-          <div className="grid">
-            {upcoming.map((event) => (
-              <EventCard
-                key={event.id}
-                event={{
-                  id: event.id,
-                  kind: 'campus',
-                  title: event.title,
-                  officialUrl: null,
-                  deadline: formatDate(event.registrationDeadline),
-                  venue: event.venue,
-                  eyebrow: `${event.category} · ${event.venue}`,
-                  meta: `${formatDate(event.start) ?? ''} · ${event.capacity ? `Capacity ${event.capacity}` : 'No capacity stated'}`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="beyond-title">
-        <div className="container">
-          <div className="section__head">
-            <h2 id="beyond-title">Beyond campus</h2>
-          </div>
-          <p style={{ color: 'var(--muted)', maxWidth: '60ch' }}>Open-source programs, hackathons and fellowships — check dates and eligibility with the organizer. The live Pune list is kept fresh by a Supabase sync, piped straight from Devpost.</p>
-          <div className="btn-row">
-            <a className="btn btn--dark" href="/events">Explore live Pune hackathons</a>
-          </div>
-        </div>
-      </section>
+      <HomeEvents />
     </>
   );
 }

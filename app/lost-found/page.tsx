@@ -13,7 +13,7 @@ export default function LostFoundPage() {
         <div className="container">
           <p className="kicker">Lost &amp; Found</p>
           <h1>The noticeboard.</h1>
-          <p className="sub">Found something, or lost something? Check in at the library desk — listings below are refreshed weekly.</p>
+          <p className="sub">Found something or lost something? Check the library desk, or ask there.</p>
         </div>
       </section>
       <section className="section">

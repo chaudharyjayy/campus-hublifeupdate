@@ -9,7 +9,7 @@
     "start": "node scripts/serve.mjs",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "sync:devpost": "node scripts/sync-devpost.mjs",
+    "sync:events": "node scripts/sync-events.mjs",
     "verify": "npm run lint && npm run type-check && npm run build"
   },
   "dependencies": {
