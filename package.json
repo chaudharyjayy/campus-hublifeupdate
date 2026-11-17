@@ -1,0 +1,29 @@
+{
+  "name": "campushub-pune",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CampusHub — upGrad SOT Pune. The student hub for upGrad School of Technology Pune (ADYPU). Static Next.js site, Supabase-backed live events feed (Pune only).",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "node scripts/serve.mjs",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "sync:devpost": "node scripts/sync-devpost.mjs",
+    "verify": "npm run lint && npm run type-check && npm run build"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "next": "^16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.11",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "^10.14.0",
+    "eslint-config-next": "^16.4.6",
+    "typescript": "5.6.3"
+  }
+}
